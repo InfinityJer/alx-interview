@@ -1,23 +1,42 @@
+#!/usr/bin/python3
+'''Module to generate Pascal's Triangle integers'''
+
+
 def pascal_triangle(n):
+    '''
+    Function to generate Pascal's Triangle integers.
+
+        Parameters:
+            n (int): The number of rows in Pascal's triangle.
+
+        Returns:
+            pascal_triangle (list): List of lists representing Pascal's Triangle.
+    '''
+    pascal_triangle = list()
+
     if n <= 0:
-        return []
+        return pascal_triangle
 
-    triangle = []
+    # Add the first row with value 1.
+    if n > 0:
+        pascal_triangle.append([1])
 
-    for i in range(n):
-        row = [1] * (i + 1)
+    # Add the second row with values 1, 1.
+    if n > 1:
+        pascal_triangle.append([1, 1])
 
-        for j in range(1, i):
-            row[j] = triangle[i - 1][j - 1] + triangle[i - 1][j]
+    # Generate the remaining rows.
+    for x in range(3, n+1):
+        # Initialize the row with zeros.
+        pascal_triangle.append([0] * x)
 
-        triangle.append(row)
+        # Set the first and last element of the row to 1.
+        pascal_triangle[x-1][0] = 1
+        pascal_triangle[x-1][x-1] = 1
 
-    return triangle
+        # Calculate the middle numbers based on the previous row.
+        for y in range(1, x-1):
+            pascal_triangle[x-1][y] = \
+                pascal_triangle[x-2][y-1] + pascal_triangle[x-2][y]
 
-
-# For testing purposes
-if __name__ == "__main__":
-    n = 5
-    result = pascal_triangle(n)
-    for row in result:
-        print(row)
+    return pascal_triangle
