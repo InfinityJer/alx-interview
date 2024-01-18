@@ -1,44 +1,36 @@
 #!/usr/bin/python3
 """
-Module for Minimum Operations problem
+Calculates the fewest number of operations needed to obtain n H characters
 """
-
 
 def minOperations(n):
     """
-    Calculates the fewest number of operations needed to
-    result in exactly n H characters in the file.
+    Calculates the fewest number of operations needed to obtain n H characters.
 
     Args:
-        n (int): The target number of H characters.
+        n (int): The target number of 'H' characters.
 
     Returns:
-        int: The minimum number of operations needed.
-
+        int: The minimum number of operations needed. If n is impossible to achieve, returns 0.
     """
     if n <= 1:
         return 0
 
-    # Create a list to store the minimum number of operations for each index
-    dp = [float('inf')] * (n + 1)
+    operations = 0
+    divisor = 2
 
-    # Base case: it takes 0 operations to have 1 'H'
-    dp[1] = 0
+    while n > 1:
+        while n % divisor == 0:
+            operations += divisor
+            n /= divisor
+        divisor += 1
 
-    # Iterate through each number and calculate the minimum operations needed
-    for i in range(2, n + 1):
-        for j in range(1, i):
-            if i % j == 0:
-                dp[i] = min(dp[i], dp[j] + i // j)
-
-    return dp[n] if dp[n] != float('inf') else 0
-
+    return operations
 
 if __name__ == "__main__":
-    n = 4
-    print("Min # of operations to reach {} char: {}".
-          format(n, minOperations(n)))
+    # Example usage
+    n1 = 4
+    print("Min # of operations to reach {} char: {}".format(n1, minOperations(n1)))
 
-    n = 12
-    print("Min # of operations to reach {} char: {}".
-          format(n, minOperations(n)))
+    n2 = 12
+    print("Min # of operations to reach {} char: {}".format(n2, minOperations(n2)))
