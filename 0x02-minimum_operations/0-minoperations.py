@@ -11,7 +11,7 @@ def minOperations(n):
         n (int): The target number of 'H' characters.
 
     Returns:
-        int: The minimum number of operations needed. If n is impossible to achieve, returns 0.
+        Returns the minimum ops count. If unreachable, returns 0.
     """
     if n <= 1:
         return 0
@@ -30,7 +30,9 @@ def minOperations(n):
 if __name__ == "__main__":
     # Example usage
     n1 = 4
-    print("Min # of operations to reach {} char: {}".format(n1, minOperations(n1)))
+    print("Min # of operations to reach {} char: {}".
+          format(n1, minOperations(n1)))
 
     n2 = 12
-    print("Min # of operations to reach {} char: {}".format(n2, minOperations(n2)))
+    print("Min # of operations to reach {} char: {}".
+          format(n2, minOperations(n2)))
