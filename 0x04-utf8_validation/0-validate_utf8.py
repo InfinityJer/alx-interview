@@ -3,6 +3,7 @@
 UTF-8 Validation
 """
 
+
 def validUTF8(data):
     """
     Determines if a given data set represents a valid UTF-8 encoding.
@@ -13,7 +14,7 @@ def validUTF8(data):
     Returns:
         True if data is a valid UTF-8 encoding, else return False.
     """
-    # Initialize a variable to keep track of the number of expected following bytes
+    # Initialize a variable to track the number of expected following bytes
     expected_following_bytes = 0
 
     for byte in data:
@@ -24,7 +25,7 @@ def validUTF8(data):
             else:
                 return False
         else:
-            # Check the number of leading ones to determine the number of following bytes
+            # Checks number of leading to determine number of following bytes
             if (byte >> 7) == 0b0:
                 # Single-byte character
                 continue
@@ -43,11 +44,13 @@ def validUTF8(data):
     # Check if all expected following bytes are present
     return expected_following_bytes == 0
 
+
 if __name__ == "__main__":
     data = [65]
     print(validUTF8(data))
 
-    data = [80, 121, 116, 104, 111, 110, 32, 105, 115, 32, 99, 111, 111, 108, 33]
+    data = [80, 121, 116, 104, 111, 110, 32, 105, 115,
+            32, 99, 111, 111, 108, 33]
     print(validUTF8(data))
 
     data = [229, 65, 127, 256]
