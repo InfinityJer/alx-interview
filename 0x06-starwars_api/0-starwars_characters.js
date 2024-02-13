@@ -9,7 +9,28 @@ if (!movieId || isNaN(movieId)) {
   process.exit(1);
 }
 
-const url = `https://swapi.dev/api/films/${movieId}/`;
+const API_URL = `https://swapi-api.hbtn.io/api`;
+
+const url = `${API_URL}/films/${movieId}/`;
+
+function fetchCharacterName(characterUrl) {
+  return new Promise((resolve, reject) => {
+    request(characterUrl, (error, response, body) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+
+      if (response.statusCode !== 200) {
+        reject(`Invalid response: ${response.statusCode}`);
+        return;
+      }
+
+      const character = JSON.parse(body);
+      resolve(character.name);
+    });
+  });
+}
 
 request(url, (error, response, body) => {
   if (error) {
@@ -25,20 +46,12 @@ request(url, (error, response, body) => {
   const film = JSON.parse(body);
   const characters = film.characters;
 
-  characters.forEach((characterUrl) => {
-    request(characterUrl, (charError, charResponse, charBody) => {
-      if (charError) {
-        console.error('Error:', charError);
-        process.exit(1);
-      }
+  const characterPromises = characters.map(fetchCharacterName);
 
-      if (charResponse.statusCode !== 200) {
-        console.error('Invalid response:', charResponse.statusCode);
-        process.exit(1);
-      }
-
-      const character = JSON.parse(charBody);
-      console.log(character.name);
+  Promise.all(characterPromises)
+    .then(names => names.forEach(name => console.log(name)))
+    .catch(err => {
+      console.error('Error:', err);
+      process.exit(1);
     });
-  });
 });
