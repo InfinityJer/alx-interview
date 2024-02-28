@@ -3,7 +3,6 @@
 Module for making change with minimum number of coins
 """
 
-
 def makeChange(coins, total):
     """
     Determines the fewest number of coins needed to meet a given amount total
@@ -11,10 +10,8 @@ def makeChange(coins, total):
     if total < 1:
         return 0
 
-    # Initialize a list to store minimum number of coins for each total
+    # Initialize a variable to store the minimum number of coins needed
     min_coins = [float('inf')] * (total + 1)
-
-    # Base case: 0 coins needed for total of 0
     min_coins[0] = 0
 
     # Iterate through each coin denomination
@@ -24,11 +21,7 @@ def makeChange(coins, total):
             min_coins[i] = min(min_coins[i], min_coins[i - coin] + 1)
 
     # If min_coins[total] remains float('inf'), it means total cannot be met
-    if min_coins[total] == float('inf'):
-        return -1
-    else:
-        return min_coins[total]
-
+    return min_coins[total] if min_coins[total] != float('inf') else -1
 
 # Testing the function
 if __name__ == "__main__":
