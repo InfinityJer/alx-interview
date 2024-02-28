@@ -7,23 +7,41 @@ def makeChange(coins, total):
     """
     Determines the fewest number of coins needed to meet a given amount total
     """
-    if total < 1:
+    # If total is 0 or less, return 0
+    if total <= 0:
         return 0
-
-    # Initialize a variable to store the minimum number of coins needed
-    min_coins = [float('inf')] * (total + 1)
-    min_coins[0] = 0
-
-    # Iterate through each coin denomination
-    for coin in coins:
-        # Update the min_coins list for each total from coin value to total
-        for i in range(coin, total + 1):
-            min_coins[i] = min(min_coins[i], min_coins[i - coin] + 1)
-
-    # If min_coins[total] remains float('inf'), it means total cannot be met
-    return min_coins[total] if min_coins[total] != float('inf') else -1
-
-# Testing the function
-if __name__ == "__main__":
-    print(makeChange([1, 2, 25], 37))  # Output: 7
-    print(makeChange([1256, 54, 48, 16, 102], 1453))  # Output: -1
+    
+    # Initialize remaining total
+    rem = total
+    
+    # Initialize count of coins used
+    coins_count = 0
+    
+    # Initialize index for iterating through sorted coins
+    coin_idx = 0
+    
+    # Sort coins in descending order
+    sorted_coins = sorted(coins, reverse=True)
+    
+    # Get the length of the coins list
+    n = len(coins)
+    
+    # Loop until remaining total is greater than 0
+    while rem > 0:
+        # If we've exhausted all coins and still have remaining total, return -1
+        if coin_idx >= n:
+            return -1
+        
+        # If the current coin can be used to reduce the remaining total
+        if rem - sorted_coins[coin_idx] >= 0:
+            # Reduce the remaining total
+            rem -= sorted_coins[coin_idx]
+            
+            # Increment the count of coins used
+            coins_count += 1
+        else:
+            # Move to the next coin
+            coin_idx += 1
+    
+    # Return the count of coins used to meet the total
+    return coins_count
