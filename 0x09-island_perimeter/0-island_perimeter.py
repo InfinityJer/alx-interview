@@ -25,8 +25,9 @@ def island_perimeter(grid):
             if grid[i][j] == 1:  # If cell is land
                 for dx, dy in directions:
                     x, y = i + dx, j + dy
-                    if x < 0 or x >= len(grid) or y < 0 or y >= len(grid[0])
-                        or grid[x][y] == 0:perimeter += 1
+                    if x < 0 or x >= len(grid) or y
+                    < 0 or y >= len(grid[0]) or grid[x][y] == 0:
+                        perimeter += 1
 
     return perimeter
 
