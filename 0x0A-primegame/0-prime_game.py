@@ -1,10 +1,9 @@
 #!/usr/bin/python3
-"""This module contains functions determining the winner of a prime game session."""
+"""This module contains fn determining the winner of a prime game session."""
 
 
 def isWinner(x, nums):
     """Determines the winner of a prime game session with `x` rounds.
-    
     Args:
         x (int): The number of rounds to play.
         nums (list): List of integers representing the game rounds.
