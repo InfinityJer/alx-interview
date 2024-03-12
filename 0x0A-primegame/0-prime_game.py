@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+
 def is_prime(n):
     """Check if a number is prime."""
     if n <= 1:
@@ -15,8 +16,9 @@ def is_prime(n):
         i += 6
     return True
 
+
 def generate_primes(limit):
-    """Generate all prime numbers up to a given limit using Sieve of Eratosthenes algorithm."""
+    """Generate all prime numbers using Sieve of Eratosthenes algorithm."""
     primes = []
     sieve = [True] * (limit + 1)
     for p in range(2, limit + 1):
@@ -26,12 +28,14 @@ def generate_primes(limit):
                 sieve[i] = False
     return primes
 
+
 def can_make_move(nums):
     """Check if there are any prime numbers left to make a move."""
     for num in nums:
         if is_prime(num):
             return True
     return False
+
 
 def isWinner(x, nums):
     """Determine the winner of the game for each round."""
@@ -51,6 +55,7 @@ def isWinner(x, nums):
         return "Ben"
     else:
         return None
+
 
 # Test
 print("Winner:", isWinner(3, [4, 5, 1]))  # Output should be "Ben"
