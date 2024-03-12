@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """This module contains functions determining the winner of a prime game session."""
 
+
 def isWinner(x, nums):
     """Determines the winner of a prime game session with `x` rounds.
     
@@ -9,7 +10,7 @@ def isWinner(x, nums):
         nums (list): List of integers representing the game rounds.
 
     Returns:
-        str or None: Name of winner ('Maria' or 'Ben'), or None if the winner not determined.
+        str or None: Name winner 'Maria' or 'Ben' or None if not determined.
     """
     # If the number of rounds is less than 1 or nums is empty, return None
     if x < 1 or not nums:
